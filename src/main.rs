@@ -11,16 +11,12 @@ struct SliceField<'a> {
 impl SliceField<'_> {
     fn inc(&mut self) {
         let slice = unsafe { slice::from_raw_parts_mut(self.ptr, self.len) };
-        for i in (self.field..self.len).step_by(2) {
-            slice[i] += 1;
-        }
+        slice.iter_mut().skip(self.field).step_by(2).for_each(|x| *x += 1);
     }
 
     fn dec(&mut self) {
         let slice = unsafe { slice::from_raw_parts_mut(self.ptr, self.len) };
-        for i in (self.field..self.len).step_by(2) {
-            slice[i] += 1;
-        }
+        slice.iter_mut().skip(self.field).step_by(2).for_each(|x| *x -= 1);
     }
 }
 
