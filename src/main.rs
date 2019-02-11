@@ -1,3 +1,4 @@
+use std::slice;
 use std::marker::PhantomData;
 
 struct SliceField<'a> {
@@ -9,18 +10,16 @@ struct SliceField<'a> {
 
 impl SliceField<'_> {
     fn inc(&mut self) {
-        unsafe {
-            for i in (self.field..self.len).step_by(2) {
-                *self.ptr.add(i) += 1;
-            }
+        let slice = unsafe { slice::from_raw_parts_mut(self.ptr, self.len) };
+        for i in (self.field..self.len).step_by(2) {
+            slice[i] += 1;
         }
     }
 
     fn dec(&mut self) {
-        unsafe {
-            for i in (self.field..self.len).step_by(2) {
-                *self.ptr.add(i) -= 1;
-            }
+        let slice = unsafe { slice::from_raw_parts_mut(self.ptr, self.len) };
+        for i in (self.field..self.len).step_by(2) {
+            slice[i] += 1;
         }
     }
 }
