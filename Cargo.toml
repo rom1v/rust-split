@@ -1,0 +1,8 @@
+[package]
+name = "rust-split"
+version = "0.1.0"
+authors = ["Romain Vimont <rom@rom1v.com>"]
+edition = "2018"
+
+[dependencies]
+rayon = "1.0"
